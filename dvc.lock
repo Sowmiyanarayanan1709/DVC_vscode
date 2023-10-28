@@ -1,0 +1,160 @@
+schema: '2.0'
+stages:
+  data_split:
+    cmd: python stages/data_split.py --config=params.yaml
+    deps:
+    - path: data/Churn_Modelling.csv
+      hash: md5
+      md5: 496aee8fbfdfa1dfb6daa9dbca5d1a01
+      size: 684858
+    - path: stages/data_split.py
+      hash: md5
+      md5: a2d8978168e2eda4b9680fdd58b6dfab
+      size: 1655
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols:
+          - Geography
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+          model_dir: model/
+        data_split:
+          test_size: 0.25
+    outs:
+    - path: data/X_test.pkl
+      hash: md5
+      md5: cdcfdded7b0aba25b54243bdc9daf92f
+      size: 185987
+    - path: data/X_train.pkl
+      hash: md5
+      md5: 84991cc650d4f320bad44f1242ee6373
+      size: 556006
+    - path: data/y_test.pkl
+      hash: md5
+      md5: 20b868ac8a1bc2bb34e898c6791d9e4e
+      size: 60586
+    - path: data/y_train.pkl
+      hash: md5
+      md5: 6282068b0007b7b663f55beb12225b19
+      size: 180595
+  train:
+    cmd: python stages/train.py --config=params.yaml
+    deps:
+    - path: data/X_train.pkl
+      hash: md5
+      md5: 84991cc650d4f320bad44f1242ee6373
+      size: 556006
+    - path: data/y_train.pkl
+      hash: md5
+      md5: 6282068b0007b7b663f55beb12225b19
+      size: 180595
+    - path: stages/train.py
+      hash: md5
+      md5: 6ad3da00a1fc35307cab1003e099e0bd
+      size: 2619
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols:
+          - Geography
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+          model_dir: model/
+        train:
+          model_type: randomforest
+          params:
+            n_estimators: 125
+            max_depth: 20
+    outs:
+    - path: model//clf-model
+      hash: md5
+      md5: 1186525c30870e71b8c7042050d702b3
+      size: 17448228
+    - path: model//clf-model.mlem
+      hash: md5
+      md5: 82965b43b1cc8893e018eb94a5c866a1
+      size: 2093
+  eval:
+    cmd: python stages/eval.py --config=params.yaml
+    deps:
+    - path: data/X_test.pkl
+      hash: md5
+      md5: cdcfdded7b0aba25b54243bdc9daf92f
+      size: 185987
+    - path: data/y_test.pkl
+      hash: md5
+      md5: 20b868ac8a1bc2bb34e898c6791d9e4e
+      size: 60586
+    - path: model//clf-model
+      hash: md5
+      md5: 1186525c30870e71b8c7042050d702b3
+      size: 17448228
+    - path: model//clf-model.mlem
+      hash: md5
+      md5: 82965b43b1cc8893e018eb94a5c866a1
+      size: 2093
+    - path: stages/eval.py
+      hash: md5
+      md5: 831b36fe335f44eae3e614699505c993
+      size: 2835
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols:
+          - Geography
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+          model_dir: model/
+        data_split:
+          test_size: 0.25
+        train:
+          model_type: randomforest
+          params:
+            n_estimators: 125
+            max_depth: 20
+    outs:
+    - path: feat_imp.csv
+      hash: md5
+      md5: cdd5f4160531ebae0b77c93923efdba9
+      size: 310
+    - path: model/perm_imp.joblib
+      hash: md5
+      md5: 6709401106fe37d3fc45143eb7ae4466
+      size: 17447387

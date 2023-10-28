@@ -1,0 +1,98 @@
+artifacts:
+  data:
+    hash: 1186525c30870e71b8c7042050d702b3
+    size: 17448228
+    uri: clf-model
+call_orders:
+  predict:
+  - - model
+    - predict
+  predict_proba:
+  - - model
+    - predict_proba
+object_type: model
+processors:
+  model:
+    methods:
+      predict:
+        args:
+        - name: X
+          type_:
+            columns:
+            - ''
+            - Geography
+            - CreditScore
+            - Age
+            - Tenure
+            - Balance
+            - NumOfProducts
+            - HasCrCard
+            - IsActiveMember
+            - EstimatedSalary
+            dtypes:
+            - int64
+            - object
+            - int64
+            - int64
+            - int64
+            - float64
+            - int64
+            - int64
+            - int64
+            - float64
+            index_cols:
+            - ''
+            type: dataframe
+        name: predict
+        returns:
+          dtype: int64
+          shape:
+          - null
+          type: ndarray
+        varkw: predict_params
+      predict_proba:
+        args:
+        - name: X
+          type_:
+            columns:
+            - ''
+            - Geography
+            - CreditScore
+            - Age
+            - Tenure
+            - Balance
+            - NumOfProducts
+            - HasCrCard
+            - IsActiveMember
+            - EstimatedSalary
+            dtypes:
+            - int64
+            - object
+            - int64
+            - int64
+            - int64
+            - float64
+            - int64
+            - int64
+            - int64
+            - float64
+            index_cols:
+            - ''
+            type: dataframe
+        name: predict_proba
+        returns:
+          dtype: float64
+          shape:
+          - null
+          - 2
+          type: ndarray
+        varkw: predict_proba_params
+    type: sklearn_pipeline
+requirements:
+- module: numpy
+  version: 1.26.0
+- module: pandas
+  version: 2.1.1
+- module: sklearn
+  package_name: scikit-learn
+  version: 1.2.2
