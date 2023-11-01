@@ -1,6 +1,9 @@
 import sys
 from pathlib import Path
 
+import warnings
+warnings.filterwarnings("ignore")
+
 src_path = Path(__file__).parent.parent.resolve()
 sys.path.append(str(src_path))
 

@@ -63,8 +63,8 @@ stages:
       size: 180595
     - path: stages/train.py
       hash: md5
-      md5: 6ad3da00a1fc35307cab1003e099e0bd
-      size: 2619
+      md5: 90869121f6f44f607d8cefccaa86e6b5
+      size: 2673
     params:
       params.yaml:
         base:
@@ -88,17 +88,17 @@ stages:
         train:
           model_type: randomforest
           params:
-            n_estimators: 125
-            max_depth: 20
+            n_estimators: 1
+            max_depth: 2000
     outs:
     - path: model//clf-model
       hash: md5
-      md5: 1186525c30870e71b8c7042050d702b3
-      size: 17448228
+      md5: 829ef6ce3df66005ab8afa8354093cee
+      size: 148049
     - path: model//clf-model.mlem
       hash: md5
-      md5: 82965b43b1cc8893e018eb94a5c866a1
-      size: 2093
+      md5: feb99dba4f70b3be006500f41ba61ee8
+      size: 2091
   eval:
     cmd: python stages/eval.py --config=params.yaml
     deps:
@@ -112,12 +112,12 @@ stages:
       size: 60586
     - path: model//clf-model
       hash: md5
-      md5: 1186525c30870e71b8c7042050d702b3
-      size: 17448228
+      md5: 829ef6ce3df66005ab8afa8354093cee
+      size: 148049
     - path: model//clf-model.mlem
       hash: md5
-      md5: 82965b43b1cc8893e018eb94a5c866a1
-      size: 2093
+      md5: feb99dba4f70b3be006500f41ba61ee8
+      size: 2091
     - path: stages/eval.py
       hash: md5
       md5: 831b36fe335f44eae3e614699505c993
@@ -147,14 +147,26 @@ stages:
         train:
           model_type: randomforest
           params:
-            n_estimators: 125
-            max_depth: 20
+            n_estimators: 1
+            max_depth: 2000
     outs:
+    - path: eval_plots/cm.png
+      hash: md5
+      md5: 905308e5005705921a6f1200dc91a202
+      size: 11756
+    - path: eval_plots/plots/sklearn/roc.json
+      hash: md5
+      md5: 89b482b018b01f9a059468411744f592
+      size: 366
     - path: feat_imp.csv
       hash: md5
-      md5: cdd5f4160531ebae0b77c93923efdba9
-      size: 310
+      md5: fb0407df5327f9ae529b686e952efb1c
+      size: 314
+    - path: metrics.json
+      hash: md5
+      md5: cf0b45a343ea31fc9c473f397629778c
+      size: 69
     - path: model/perm_imp.joblib
       hash: md5
-      md5: 6709401106fe37d3fc45143eb7ae4466
-      size: 17447387
+      md5: bdc83157a8fa9dea7e21d25c45dbf9a1
+      size: 149547

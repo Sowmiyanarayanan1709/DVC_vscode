@@ -39,5 +39,18 @@ stages:
       - train
     outs:
       - ${eval.perm_imp_model_path}
+    metrics:
+      - metrics.json:
+          cache: false
+    plots:
+      - eval_plots/cm.png:
+          cache: false
+      - eval_plots/plots/sklearn/roc.json:
+          cache: false
+          x: fpr
+          y: tpr
       - feat_imp.csv:
           cache: false
+          template: bar_horizontal
+          x: importance
+          y: feature

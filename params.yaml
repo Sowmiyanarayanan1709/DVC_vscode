@@ -23,8 +23,8 @@ data_split:
 train:
   model_type: randomforest
   params:
-    n_estimators: 125
-    max_depth: 20
+    n_estimators: 1
+    max_depth: 2000
 
 eval:
   perm_imp_model_path: model/perm_imp.joblib
